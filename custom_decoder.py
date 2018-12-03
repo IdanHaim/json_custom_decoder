@@ -1,5 +1,5 @@
 from json.decoder import py_scanstring, JSONDecodeError, WHITESPACE, WHITESPACE_STR
-import custom_scanner
+from custom_scanner import make_scanner
 import base64
 import json
 
@@ -120,7 +120,7 @@ class JsonDecoder(json.JSONDecoder):
         # we need to use our custom JsonObject to be able to return objects from mapper
         self.parse_object = JsonObject
         # we need to use a custom scanner only to be able to give the mapper method to the JsonObject
-        self.scan_once = custom_scanner.py_make_scanner(self)
+        self.scan_once = make_scanner(self)
 
     def decode(self, s, _w=WHITESPACE.match):
         obj = super(JsonDecoder, self).decode(s, _w)
